@@ -1,4 +1,4 @@
-import { hashSync } from 'bcryptjs';
+import { hash } from 'bcryptjs';
 import Joi from 'joi';
 import mongoose from 'mongoose';
 
@@ -12,12 +12,16 @@ const createSuperUserSchema = Joi.object({
   password: Joi.string().min(3).required(),
 });
 
-export default async function createsuperuser(email, firstName, lastName, password) {
-    const args = { email, firstName, lastName, password };
-    const validatedData = await createSuperUserSchema.validateAsync(args);
-    validatedData.password = hashSync(validatedData.password, SALT);
-    validatedData.isAdmin = true;
-    const newUser = new User(validatedData);
-    await mongoose.connect(MONGO_URI);
-    await newUser.save();
+export default async function createsuperuser(
+  email,
+  firstName,
+  lastName,
+  password
+) {
+  const args = { email, firstName, lastName, password };
+  const validatedData = await createSuperUserSchema.validateAsync(args);
+  validatedData.password = await hash(validatedData.password, SALT);
+  const newUser = new User({ ...validatedData, isAdmin: true });
+  await mongoose.connect(MONGO_URI);
+  await newUser.save();
 }
