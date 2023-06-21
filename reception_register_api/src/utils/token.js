@@ -1,6 +1,6 @@
 export function generateKey() {
-  let result = "";
-  const characters = "abcdefghijklmnopqrstuvwxyz0123456789";
+  let result = '';
+  const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
   const charactersLength = characters.length;
   let counter = 0;
   while (counter < 40) {

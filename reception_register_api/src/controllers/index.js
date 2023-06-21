@@ -1,4 +1,4 @@
-import { detail, login, logout } from "./accounts";
+import { detail, login, logout } from './accounts';
 import {
   createRegister,
   destoryRegister,
@@ -6,7 +6,7 @@ import {
   partialUpdateRegister,
   retrieveRegister,
   updateRegister,
-} from "./register";
+} from './register';
 
 export {
   createRegister,

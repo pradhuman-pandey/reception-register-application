@@ -5,7 +5,7 @@ export const registerCreateSchema = Joi.object({
   name: Joi.string().min(3).required(),
   company: Joi.string().min(3).required(),
   personToMeet: Joi.string().required(),
-  mobile: Joi.number().min(10).max(10).required(),
+  mobile: Joi.number().min(10).required(),
   purpose: Joi.string().required(),
   in: Joi.date().required(),
   sign: Joi.string().min(3).required(),

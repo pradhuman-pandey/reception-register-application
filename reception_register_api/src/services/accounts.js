@@ -1,7 +1,7 @@
-import { compareSync } from "bcryptjs";
+import { compareSync } from 'bcryptjs';
 
-import { User } from "../models";
-import { generateKey } from "../utils/token";
+import { User } from '../models';
+import { generateKey } from '../utils/token';
 
 export async function performLoginService(payload) {
   const user = await User.findOne({ email: payload.email, isActive: true });
@@ -26,7 +26,7 @@ export async function retrieveUserService(user) {
 }
 
 export async function performLogoutService(user) {
-  user.set("token", undefined, { strict: false });
+  user.set('token', undefined, { strict: false });
   await user.save();
   return {};
 }

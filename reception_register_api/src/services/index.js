@@ -2,7 +2,7 @@ import {
   performLoginService,
   performLogoutService,
   retrieveUserService,
-} from "./accounts";
+} from './accounts';
 import {
   createRegisterService,
   destoryRegisterService,
@@ -10,7 +10,7 @@ import {
   partialUpdateRegisterService,
   retrieveRegisterService,
   updateRegisterService,
-} from "./register";
+} from './register';
 
 export {
   createRegisterService,

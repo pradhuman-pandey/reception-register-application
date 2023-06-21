@@ -1,4 +1,4 @@
-import { registerCreateSchema, registerUpdateSchema } from "../validators";
+import { registerCreateSchema, registerUpdateSchema } from '../validators';
 import {
   createRegisterService,
   destoryRegisterService,
@@ -6,12 +6,12 @@ import {
   partialUpdateRegisterService,
   retrieveRegisterService,
   updateRegisterService,
-} from "../services";
+} from '../services';
 
 export async function createRegister(request, response) {
   try {
     const validatedData = await registerCreateSchema.validateAsync(request.body);
-    const data = await createRegisterService(validatedData);
+    const data = await createRegisterService(validatedData, request.user);
     return response.status(201).json(data);
   } catch (e) {
     return response.status(400).json(e);

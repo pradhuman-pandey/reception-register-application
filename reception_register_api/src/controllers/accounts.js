@@ -5,7 +5,7 @@ export async function login(request, response) {
   try {
     const validatedData = await loginSchema.validateAsync(request.body);
     const data = await performLoginService(validatedData);
-    if (!data) return response.status(401).json({ detail: "Invalid credentials!" });
+    if (!data) return response.status(401).json({ detail: 'Invalid credentials!' });
     return response.status(201).json(data);
   } catch (e) {
     return response.status(400).json(e);
