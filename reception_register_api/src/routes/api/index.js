@@ -1,6 +1,10 @@
 import { Router } from 'express';
 
-const urlpatterns = new Map([]);
+import v1 from './v1';
+
+const urlpatterns = new Map([
+  ['/v1', v1],
+]);
 
 const api = Router();
 urlpatterns.forEach((router, prefix) => {
