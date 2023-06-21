@@ -1,5 +1,8 @@
 import path from 'path';
-import 'dotenv';
+
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export const BASE_DIR = path.dirname(path.dirname(__filename));
 
