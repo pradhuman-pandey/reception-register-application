@@ -1,3 +1,4 @@
-import { User } from './user';
+import Register from './register';
+import User from './user';
 
-export { User };
+export { Register, User };
