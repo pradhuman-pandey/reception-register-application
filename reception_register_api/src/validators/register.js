@@ -1,7 +1,6 @@
 import Joi from 'joi';
 
 export const registerCreateSchema = Joi.object({
-  date: Joi.date().required(),
   name: Joi.string().min(3).required(),
   company: Joi.string().min(3).required(),
   personToMeet: Joi.string().required(),
@@ -15,7 +14,6 @@ export const registerCreateSchema = Joi.object({
 });
 
 export const registerUpdateSchema = Joi.object({
-  date: Joi.date(),
   name: Joi.string().min(3),
   company: Joi.string().min(3),
   personToMeet: Joi.string(),
