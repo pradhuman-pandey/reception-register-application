@@ -1,3 +1,3 @@
 import authenticate from './authentication';
 
-export { authenticate };
+export {authenticate};

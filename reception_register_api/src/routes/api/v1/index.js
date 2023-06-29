@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import {Router} from 'express';
 
 import accounts from './accounts';
 import register from './register';
@@ -8,6 +8,7 @@ const urlpatterns = new Map([
   ['/register', register],
 ]);
 
+// eslint-disable-next-line new-cap
 const v1 = Router();
 urlpatterns.forEach((router, prefix) => {
   v1.use(prefix, router);

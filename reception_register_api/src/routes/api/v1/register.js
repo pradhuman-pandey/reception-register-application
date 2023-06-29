@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import {Router} from 'express';
 
 import {
   createRegister,
@@ -9,13 +9,14 @@ import {
   updateRegister,
 } from '../../../controllers';
 
+// eslint-disable-next-line new-cap
 const register = Router();
 register.route('/').get(listRegister).post(createRegister);
 register
-  .route('/:id')
-  .get(retrieveRegister)
-  .put(updateRegister)
-  .patch(partialUpdateRegister)
-  .delete(destoryRegister);
+    .route('/:id')
+    .get(retrieveRegister)
+    .put(updateRegister)
+    .patch(partialUpdateRegister)
+    .delete(destoryRegister);
 
 export default register;
