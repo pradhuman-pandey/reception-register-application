@@ -33,8 +33,8 @@ export async function createRegister(request, response) {
  * @return {Response}
  */
 export async function listRegister(request, response) {
-  const date = request.body.date;
-  const data = await listRegisterService(date, request.user);
+  const queryParams = request.query;
+  const data = await listRegisterService(request.user, queryParams);
   return response.status(200).json(data);
 }
 

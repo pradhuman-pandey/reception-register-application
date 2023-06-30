@@ -1,4 +1,4 @@
-import {Register} from '../models';
+import { Register } from "../models";
 
 /**
  * Creates a new register service.
@@ -19,10 +19,23 @@ export async function createRegisterService(payload, user) {
  * Creates a new register service.
  *
  * @param {Object} user object associated with the register.
+ * @param {Object} query filters associated with the register.
  * @return {Promise<Object>} that resolves to the newly created register data.
  */
-export async function listRegisterService(user) {
-  const data = await Register.find({user: user._id});
+export async function listRegisterService(user, query) {
+  // here I am taking the the user id and fetch the data based on
+  // created filtered date fetch the data from it.
+  const filter = { user: user._id };
+  const { date } = query;
+  if (!date) {
+    date = new Date().toISOString().split("T")[0];
+  }
+
+  filter.created = {
+    $gte: new Date(`${date}T00:00:00Z`),
+    $lte: new Date(`${date}T23:59:59Z`),
+  };
+  const data = await Register.find(filter);
   return data;
 }
 
@@ -33,7 +46,7 @@ export async function listRegisterService(user) {
  * @return {Promise<Object>} that resolves to the newly created register data.
  */
 export async function retrieveRegisterService(id, user) {
-  const data = await Register.findOne({_id: id, user: user._id});
+  const data = await Register.findOne({ _id: id, user: user._id });
   return data;
 }
 
@@ -65,6 +78,6 @@ export async function partialUpdateRegisterService(id, payload) {
  * @return {Promise<Object>} that resolves to the newly created register data.
  */
 export async function destoryRegisterService(id) {
-  const data = await Register.findOneAndDelete(id);
+  const data = await Register.findByIdAndDelete(id);
   return data;
 }
