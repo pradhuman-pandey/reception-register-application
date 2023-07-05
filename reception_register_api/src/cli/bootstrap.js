@@ -10,24 +10,34 @@ import urlpatterns from '../routes';
 import {MONGO_URI} from '../settings';
 
 /**
- * Bootstraps the application
+ * Create Request Listener.
+ * @returns {express.Application}
+ */
+export function getRequestListener() {
+  const application = express();
+  application.use(helmet());
+  application.use(express.urlencoded({extended: true}));
+  application.use(express.json());
+  application.use(morgan('combined'));
+  application.use(authenticate);
+ 
+  urlpatterns.forEach((router, pattern) => {
+    application.use(pattern, router);
+  });
+
+  return application;
+}
+
+/**
+ * Bootstraps the application.
  * @param {Number} port
  * @param {String} host
  */
 export default async function bootstrap(port, host) {
-  const app = express();
-  app.use(helmet());
-  app.use(express.urlencoded({extended: true}));
-  app.use(express.json());
-  app.use(morgan('combined'));
-  app.use(authenticate);
+  const requestListener = getRequestListener();
 
-  urlpatterns.forEach((router, pattern) => {
-    app.use(pattern, router);
-  });
-
-  const serverOptions = {};
-  const server = new Server(serverOptions, app);
+  const options = {};
+  const server = new Server(options, requestListener);
 
   await mongoose.connect(MONGO_URI);
   server.listen(port, host, () => {

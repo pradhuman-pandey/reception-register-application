@@ -1,4 +1,4 @@
-import { Register } from "../models";
+import {Register} from '../models';
 
 /**
  * Creates a new register service.
@@ -23,12 +23,10 @@ export async function createRegisterService(payload, user) {
  * @return {Promise<Object>} that resolves to the newly created register data.
  */
 export async function listRegisterService(user, query) {
-  // here I am taking the the user id and fetch the data based on
-  // created filtered date fetch the data from it.
-  const filter = { user: user._id };
-  const { date } = query;
+  const filter = {user: user._id};
+  let {date} = query;
   if (!date) {
-    date = new Date().toISOString().split("T")[0];
+    date = new Date().toISOString().split('T')[0];
   }
 
   filter.created = {
@@ -46,7 +44,7 @@ export async function listRegisterService(user, query) {
  * @return {Promise<Object>} that resolves to the newly created register data.
  */
 export async function retrieveRegisterService(id, user) {
-  const data = await Register.findOne({ _id: id, user: user._id });
+  const data = await Register.findOne({_id: id, user: user._id});
   return data;
 }
 

@@ -17,11 +17,11 @@ yargs
               .positional('host', {
                 type: 'string',
                 describe: 'Host',
-                default: '127.0.0.1',
+                default: '::',
               });
         },
         async (args) => {
-          await bootstrap(Number(args.port), String(args.host));
+          await bootstrap(Number(args.port), args.host);
         },
     )
     .command(
