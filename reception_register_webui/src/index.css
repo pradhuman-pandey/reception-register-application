@@ -4,5 +4,10 @@
 
 
 @layer components {
-    
+    .shadow-xl {
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, .1), 0 10px 10px -5px rgba(0, 0, 0, .04);
+      }
+      .table_component{
+        @apply w-full text-sm text-left text-gray-500 dark:text-gray-400 shadow-xl
+      }
 }

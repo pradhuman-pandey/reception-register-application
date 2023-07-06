@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { API_V1 } from "../constants";
+import { API } from "../constants";
 import axios from "../services/axios";
 
 export default function useUser() {
@@ -8,7 +8,7 @@ export default function useUser() {
   const [loading, setLoading] = useState(false);
 
   const retrieveUser = async () => {
-    const response = await axios.get(API_V1.ACCOUNT_DETAIL);
+    const response = await axios.get(API.V1.ACCOUNT_DETAIL);
     const data = await response.data;
     setUser(data);
     setLoading(false);

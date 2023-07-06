@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 
-import { API_V1 } from "../constants";
+import { API } from "../constants";
 import axios from "../services/axios";
 
 export default function useListRegister() {
   const [registerList, setRegisterList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState(Object);
-  // In filters we can also add filters for pagination etc
-  // refer repo-->https://github.com/amoghmadan/django-next-todo-application/blob/main/tracker_webui/src/hooks/useListItem.ts
+
   const getListRegister = async () => {
-    let url = API_V1.REGISTER;
+    let url = API.V1.REGISTER;
     if (filters) {
       const queryParams = new URLSearchParams();
       Object.entries(filters).forEach((pair) => {
