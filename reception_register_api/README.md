@@ -1,6 +1,6 @@
-# Recption Register API
+# Reception Register API
 
-Recption Register API Reference
+Reception Register API Reference
 
 ## How to setup (development)?
 

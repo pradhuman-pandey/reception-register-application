@@ -11,7 +11,7 @@ import {MONGO_URI} from '../settings';
 
 /**
  * Create Request Listener.
- * @returns {express.Application}
+ * @return {express.Application}
  */
 export function getRequestListener() {
   const application = express();
@@ -20,7 +20,7 @@ export function getRequestListener() {
   application.use(express.json());
   application.use(morgan('combined'));
   application.use(authenticate);
- 
+
   urlpatterns.forEach((router, pattern) => {
     application.use(pattern, router);
   });

@@ -1,3 +1,5 @@
+import {STATUS_CODES} from 'http';
+
 import {
   createRegisterService,
   destoryRegisterService,
@@ -47,7 +49,7 @@ export async function listRegister(request, response) {
 export async function retrieveRegister(request, response) {
   const {id} = request.params;
   const data = await retrieveRegisterService(id, request.user);
-  if (!data) return response.status(404).json({detail: 'Not found.'});
+  if (!data) return response.status(404).json({detail: STATUS_CODES[404]});
   return response.status(200).json(data);
 }
 
@@ -60,7 +62,7 @@ export async function retrieveRegister(request, response) {
 export async function updateRegister(request, response) {
   const {id} = request.params;
   const register = await retrieveRegisterService(id, request.user);
-  if (!register) return response.status(404).json({detail: 'Not found.'});
+  if (!register) return response.status(404).json({detail: STATUS_CODES[404]});
   try {
     const validatedData = await registerCreateSchema.validateAsync(
         request.body,
@@ -81,7 +83,7 @@ export async function updateRegister(request, response) {
 export async function partialUpdateRegister(request, response) {
   const {id} = request.params;
   const register = await retrieveRegisterService(id, request.user);
-  if (!register) return response.status(404).json({detail: 'Not found.'});
+  if (!register) return response.status(404).json({detail: STATUS_CODES[404]});
   try {
     const validatedData = await registerUpdateSchema.validateAsync(
         request.body,
@@ -105,7 +107,7 @@ export async function partialUpdateRegister(request, response) {
 export async function destoryRegister(request, response) {
   const {id} = request.params;
   const register = await retrieveRegisterService(id, request.user);
-  if (!register) return response.status(404).json({detail: 'Not found.'});
+  if (!register) return response.status(404).json({detail: STATUS_CODES[404]});
   const data = await destoryRegisterService(register._id);
   return response.status(204).json(data);
 }
