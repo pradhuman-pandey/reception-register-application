@@ -12,9 +12,12 @@ import {loginSchema} from '../validators';
  * @return {Response}
  */
 export async function login(request, response) {
+  console.log(request.body);
   try {
     const validatedData = await loginSchema.validateAsync(request.body);
+    console.log(validatedData);
     const data = await performLoginService(validatedData);
+    console.log(data);
     if (!data) {
       return response.status(401).json({detail: 'Invalid credentials!'});
     }

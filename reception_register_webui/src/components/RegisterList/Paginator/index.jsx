@@ -24,7 +24,7 @@ export default function Paginator() {
   };
 
   return (
-    <div className="flex gap-1 justify-normal p-3 px-3">
+    <div className="flex gap-1 justify-normal p-7 px-3">
       <span className="bg-slate-100">
         <button type="button" className=" p-0 px-4" onClick={onPageChange(-1)}>
           Previous

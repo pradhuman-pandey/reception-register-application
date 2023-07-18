@@ -8,7 +8,7 @@ export default function useListRegister() {
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState(Object);
 
-  const getListRegister = async () => {
+  const getListRegister = async (e) => {
     let url = API.V1.REGISTER;
     if (filters) {
       const queryParams = new URLSearchParams();
@@ -18,7 +18,10 @@ export default function useListRegister() {
       url += `?${queryParams.toString()}`;
     }
     const response = await axios.get(url);
+    console.log(url);
+    console.log(response.data);
     const data = await response.data;
+    console.log(data);
     setRegisterList(data);
     setLoading(false);
   };

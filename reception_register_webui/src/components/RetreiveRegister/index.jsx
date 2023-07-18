@@ -1,12 +1,12 @@
 import { useRetrieveRegister } from "../../hooks";
-export default function RetreiveRegister(){
-  const [register, loading] = useRetrieveRegister(id);
-
+export default function RetreiveRegister(props){
+  console.log("hello",props.userId);
+  const [register, loading] = useRetrieveRegister(props.userId);
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  console.log(register);
+  console.log("aman",register);
 
   return <></>;
 };

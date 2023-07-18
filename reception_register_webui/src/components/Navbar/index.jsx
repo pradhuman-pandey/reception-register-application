@@ -14,29 +14,34 @@ import { useUser } from "../../hooks";
 import axios from "../../services/axios";
 
 export default function Navbar() {
-  const naviagte = useNavigate();
+  const navigate = useNavigate();
   const [user, loading] = useUser();
   const [open, setOpen] = useState(false);
   const [logout, setLogout] = useState(false);
-  const [openmodal, setOpenModal] = useState(false);
-
-  const handleOpen = () => {
-    setOpenModal((openmodal) => !openmodal);
-  };
-  
+  const [openmodal,setOpenModal] = useState(false)
+  // const [dropdown,setDropDown] = useState(false);
   // const handleClose = () => setOpenModal(false);
   const dropdowntoggle = () => {
-    setLogout(!logout);
+    setLogout((logout)=>!logout);
   };
+
+  const handleOpen = () =>{
+    setOpenModal(!openmodal);
+  }
+
   const toggleOpen = () => {
     setOpen(!open);
   };
 
   const performLogout = async (e) => {
     e.preventDefault();
+    console.log("hello")
     await axios.delete(API.V1.ACCOUNT_LOGOUT);
     localStorage.clear();
-    naviagte(Browser.ROOT);
+    setTimeout(()=>{
+      navigate(Browser.ROOT);
+    },10000)
+    window.location.reload()
   };
 
   return (
@@ -80,6 +85,7 @@ export default function Navbar() {
           >
             Dashboard
           </Link>
+          <div className="New_register">
           <button
             onClick={handleOpen}
             className="text-white px-4 py-2 mt-2 text-lg font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
@@ -88,11 +94,9 @@ export default function Navbar() {
           </button>
 
            {openmodal && <div><NewEntry openmodal={openmodal}/></div>}
-         
+           </div>
           <div
-            onClick={() => setOpen(false)}
             className="relative"
-            onMouseLeave={() => setOpen(false)}
           >
             <button
               onClick={dropdowntoggle}
@@ -116,15 +120,15 @@ export default function Navbar() {
               </svg>
             </button>
             {logout && (
-              <div className="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
-                <ul className="px-1 py-2 text-center">
-                  <li>
-                    <button type="button" onClick={performLogout}>
+              //  <section className="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
+                <ul>
+                  <li className=" px-1 py-2 text-center right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
+                    <button onClick={performLogout}>
                       Logout
                     </button>
                   </li>
                 </ul>
-              </div>
+              // </section>
             )}
           </div>
         </nav>

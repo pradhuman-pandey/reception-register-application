@@ -7,7 +7,9 @@ import {generateKey} from '../utils/token';
  * @return {Promise<Object>} that resolves to the newly created token data.
  */
 export async function performLoginService(payload) {
+  console.log(payload);
   const user = await User.findOne({email: payload.email, isActive: true});
+  console.log(user)
   if (!user) return null;
   const match = await user.validatePassword(payload.password);
   if (!match) return null;
@@ -16,6 +18,7 @@ export async function performLoginService(payload) {
     user.lastLogin = new Date();
     await user.save();
   }
+  console.log(user.token.key);
   return {token: user.token.key};
 }
 

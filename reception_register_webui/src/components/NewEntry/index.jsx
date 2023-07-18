@@ -1,5 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useRef } from "react";
+import axios from "axios";
 import { API } from "../../constants";
+import { Browser,LOCAL_STORAGE_KEY } from "../../constants";
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -18,49 +22,43 @@ const style = {
 };
 
 export default function NewEntry({ openmodal }) {
-  // const handleClose = () => setOpenModal(false);
   const navigate = useNavigate();
+  const nameRef = useRef(!null);
+  const companyRef = useRef(!null);
+  const persontomeetRef = useRef(!null);
+  const mobileRef = useRef(!null);
+  const purposeRef = useRef(!null);
+  const dateRef = useRef(!null);
+  const signRef = useRef(!null);
 
-  const [formData, setFormData] = useState({
-    dateRequired: Date.now(),
-    name: "",
-    company: "",
-    persontomeet: "",
-    mobile: "",
-    purpose: "",
-  });
-
-  var someDate = new Date();
-  var numberOfDaysToAdd = 0;
-  var date = someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
-  var defaultValue = new Date(date).toISOString().split("T")[0];
-
-  const handleChange = (e) => {
-    e.preventDefault;
-    setFormData({
-      ...formData,
-      [e.target.id]: e.target.value,
-    });
-    console.log(formData);
-  };
-
+  var defaultValue = new Date().toISOString().split("T")[0];
+  let date = new Date();
+  var currentTime =  date.getHours()+":"+date.getMinutes()+":"+ date.getSeconds();
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(API.V1.REGISTER, formData);
-      if (response.status !== 201) {
-        if (response.status === 400) {
-          alert("Please fill the form with all the required fields.");
-          return;
-        }
-        alert("Something went wrong!");
-        return;
-      }
-      navigate("/dashboard");
-    } catch (error) {
-      setError("Something went wrong!");
-    }
-    console.log(formData);
+    const token = localStorage.getItem(LOCAL_STORAGE_KEY) 
+
+    const headers = {
+      Authorization: `Token ${token}`,
+      'Content-Type': 'application/json',
+    };
+    const payload = {
+      name: nameRef.current.value,
+      company: companyRef.current.value,
+      personToMeet: persontomeetRef.current.value,
+      mobile: mobileRef.current.value,
+      purpose: purposeRef.current.value,
+      in: new Date().toISOString(),
+      sign: signRef.current.value
+    } 
+    const response = await axios.post(`http://127.0.0.1:8000/api/v1/register/`, payload,{headers});
+    if (response.status !== 201) return;
+    const data = await response.data;
+    console.log(data);
+    setTimeout(()=>{
+      window.location.reload();
+    },5000)
   };
 
   return (
@@ -73,6 +71,7 @@ export default function NewEntry({ openmodal }) {
       >
         <Box sx={style}>
           <form class="bg-white shadow-md rounded px-2 pt-2 pb-2 mb-2">
+            <div className="grid grid-flow-col gap-4">
             <div class="mb-2">
               <label
                 class="block text-gray-700 text-sm font-bold mb-2"
@@ -86,7 +85,6 @@ export default function NewEntry({ openmodal }) {
                 type="date"
                 name="dateRequired"
                 defaultValue={defaultValue}
-                onChange={handleChange}
               />
             </div>
             <div class="mb-2">
@@ -97,14 +95,16 @@ export default function NewEntry({ openmodal }) {
                 Name
               </label>
               <input
-                class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline"
+                class="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline"
                 id="name"
                 type="text"
                 placeholder="Name"
-                onChange={handleChange}
+                ref={nameRef}
               />
               {/* <p class="text-red-500 text-xs italic">Please choose a password.</p> */}
             </div>
+            </div>
+            <div className="grid grid-flow-col gap-4">
             <div class="mb-2">
               <label
                 class="block text-gray-700 text-sm font-bold mb-2"
@@ -113,11 +113,11 @@ export default function NewEntry({ openmodal }) {
                 Company
               </label>
               <input
-                class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline"
+                class="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline"
                 id="company"
                 type="text"
                 placeholder="Company"
-                onChange={handleChange}
+                ref={companyRef}
               />
               {/* <p class="text-red-500 text-xs italic">Please choose a password.</p> */}
             </div>
@@ -129,14 +129,16 @@ export default function NewEntry({ openmodal }) {
                 Person To Meet
               </label>
               <input
-                class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline"
+                class="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline"
                 id="persontomeet"
                 type="text"
                 placeholder="Person Name"
-                onChange={handleChange}
+                ref={persontomeetRef}
               />
               {/* <p class="text-red-500 text-xs italic">Please choose a password.</p> */}
             </div>
+            </div>
+            <div className="grid grid-flow-col gap-4">
             <div class="mb-2">
               <label
                 class="block text-gray-700 text-sm font-bold mb-2"
@@ -145,11 +147,11 @@ export default function NewEntry({ openmodal }) {
                 Phone
               </label>
               <input
-                class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline"
+                class="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline"
                 id="mobile"
                 type="number"
                 placeholder="number"
-                onChange={handleChange}
+                ref={mobileRef}
               />
               {/* <p class="text-red-500 text-xs italic">Please choose a password.</p> */}
             </div>
@@ -161,15 +163,49 @@ export default function NewEntry({ openmodal }) {
                 Purpose
               </label>
               <input
-                class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline"
+                class="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline"
                 id="purpose"
                 type="text"
                 placeholder="purpose"
-                onChange={handleChange}
+                ref={purposeRef}
               />
               {/* <p class="text-red-500 text-xs italic">Please choose a password.</p> */}
             </div>
-            <div class="flex items-center justify-between">
+            </div>
+            <div className="grid grid-flow-col gap-4">
+            <div class="mb-2">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="username"
+              >
+                In
+              </label>
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="dateRequired"
+                type="time"
+                name="dateRequired"
+                Value={currentTime}
+              />
+            </div>
+            <div class="mb-2">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="purpose"
+              >
+                Sign
+              </label>
+              <input
+                class="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-2 leading-tight focus:outline-none focus:shadow-outline"
+                id="purpose"
+                type="text"
+                placeholder="purpose"
+                ref={signRef}
+              />
+              {/* <p class="text-red-500 text-xs italic">Please choose a password.</p> */}
+            </div>
+            </div>
+            <div >
               <button
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="button"
