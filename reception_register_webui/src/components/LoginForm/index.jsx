@@ -49,7 +49,7 @@ export default function LoginForm() {
           <div className="mb-16 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12">
             <div className="field_container flex flex-col justify-center items-center">
               <form>
-                <div className="flex flex-row items-center justify-center lg:justify-start">
+                {/* <div className="flex flex-row items-center justify-center lg:justify-start">
                   <p className="mb-0 mr-4 text-lg">Sign in with</p>
 
                   <button
@@ -105,6 +105,9 @@ export default function LoginForm() {
                   <p className="mx-4 mb-0 text-center font-semibold dark:text-white">
                     Or
                   </p>
+                </div> */}
+                <div className="flex flex-row items-center justify-center lg:justify-start">
+                  <p className="mb-0 mr-4 text-lg">Sign in</p>
                 </div>
 
                 <div
