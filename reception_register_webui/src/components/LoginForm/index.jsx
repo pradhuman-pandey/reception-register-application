@@ -20,9 +20,9 @@ export default function LoginForm() {
     if (response.status !== 201) return;
     const data = await response.data;
     localStorage.setItem(LOCAL_STORAGE_KEY, data.token);
-    setTimeout(()=>{
+    setTimeout(() => {
       navigate(Browser.DASHBOARD);
-    },10000)
+    }, 10000);
     window.location.reload();
   };
 
