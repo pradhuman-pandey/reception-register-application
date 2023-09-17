@@ -3,8 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { ListRegisterContext } from "../../../contexts";
 
 export default function Paginator() {
-  const { registerList, loading, filters, setFilters } =
-    useContext(ListRegisterContext);
+  const { setFilters } = useContext(ListRegisterContext);
   const [today, setToday] = useState(0);
 
   useEffect(() => {

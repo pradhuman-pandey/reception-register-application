@@ -1,12 +1,5 @@
-import * as React from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link, useLocation } from "react-router-dom";
-
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
+import { Link, useNavigate } from "react-router-dom";
 
 import { API, Browser } from "../../constants";
 import NewEntry from "../NewEntry";
@@ -18,16 +11,15 @@ export default function Navbar() {
   const [user, loading] = useUser();
   const [open, setOpen] = useState(false);
   const [logout, setLogout] = useState(false);
-  const [openmodal,setOpenModal] = useState(false)
-  // const [dropdown,setDropDown] = useState(false);
-  // const handleClose = () => setOpenModal(false);
-  const dropdowntoggle = () => {
-    setLogout((logout)=>!logout);
+  const [openModal, setOpenModal] = useState(false);
+
+  const dropdownToggle = () => {
+    setLogout((logout) => !logout);
   };
 
-  const handleOpen = () =>{
-    setOpenModal(!openmodal);
-  }
+  const handleOpen = () => {
+    setOpenModal(!openModal);
+  };
 
   const toggleOpen = () => {
     setOpen(!open);
@@ -35,15 +27,18 @@ export default function Navbar() {
 
   const performLogout = async (e) => {
     e.preventDefault();
-    console.log("hello")
-    await axios.delete(API.V1.ACCOUNT_LOGOUT);
-    localStorage.clear();
-    setTimeout(()=>{
-      navigate(Browser.ROOT);
-    },10000)
-    window.location.reload()
+    try {
+      await axios.delete(API.V1.ACCOUNT_LOGOUT);
+    } finally {
+      localStorage.clear();
+      setTimeout(() => {
+        navigate(Browser.ROOT);
+      }, 10000);
+      window.location.reload();
+    }
   };
 
+  if (loading) return <>Loading...</>;
   return (
     <div className="w-full text-white-700 dark-mode:text-white-200 dark-mode:bg-cyan-600 bg-cyan-600">
       <div className="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
@@ -86,20 +81,22 @@ export default function Navbar() {
             Dashboard
           </Link>
           <div className="New_register">
-          <button
-            onClick={handleOpen}
-            className="text-white px-4 py-2 mt-2 text-lg font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-          >
-            New Register
-          </button>
-
-           {openmodal && <div><NewEntry openmodal={openmodal}/></div>}
-           </div>
-          <div
-            className="relative"
-          >
             <button
-              onClick={dropdowntoggle}
+              onClick={handleOpen}
+              className="text-white px-4 py-2 mt-2 text-lg font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+            >
+              New Register
+            </button>
+
+            {openModal && (
+              <div>
+                <NewEntry openModal={openModal} />
+              </div>
+            )}
+          </div>
+          <div className="relative">
+            <button
+              onClick={dropdownToggle}
               className="text-white flex flex-row items-center w-full px-4 py-2 mt-2 text-lg font-semibold text-left bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:w-auto md:inline md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
             >
               <span>
@@ -121,13 +118,11 @@ export default function Navbar() {
             </button>
             {logout && (
               //  <section className="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
-                <ul>
-                  <li className=" px-1 py-2 text-center right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
-                    <button onClick={performLogout}>
-                      Logout
-                    </button>
-                  </li>
-                </ul>
+              <ul>
+                <li className=" px-1 py-2 text-center right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
+                  <button onClick={performLogout}>Logout</button>
+                </li>
+              </ul>
               // </section>
             )}
           </div>

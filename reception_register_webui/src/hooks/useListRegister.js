@@ -8,25 +8,22 @@ export default function useListRegister() {
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState(Object);
 
-  const getListRegister = async (e) => {
-    let url = API.V1.REGISTER;
-    if (filters) {
-      const queryParams = new URLSearchParams();
-      Object.entries(filters).forEach((pair) => {
-        queryParams.append(pair[0], pair[1]);
-      });
-      url += `?${queryParams.toString()}`;
-    }
-    const response = await axios.get(url);
-    console.log(url);
-    console.log(response.data);
-    const data = await response.data;
-    console.log(data);
-    setRegisterList(data);
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const getListRegister = async () => {
+      setLoading(true);
+      let url = API.V1.REGISTER;
+      if (filters) {
+        const queryParams = new URLSearchParams();
+        Object.entries(filters).forEach((pair) => {
+          queryParams.append(pair[0], pair[1]);
+        });
+        url += `?${queryParams.toString()}`;
+      }
+      const response = await axios.get(url);
+      const data = await response.data;
+      setRegisterList(data);
+      setLoading(false);
+    };
     getListRegister();
   }, [filters]);
 

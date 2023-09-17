@@ -5,7 +5,7 @@ import {bootstrap, createsuperuser} from './cli';
 yargs
     .strict()
     .command(
-        'runserver [port] [host]',
+        'bootstrap [port] [host]',
         'Run server',
         (setup) => {
           setup
@@ -22,6 +22,7 @@ yargs
         },
         async (args) => {
           await bootstrap(Number(args.port), args.host);
+          // npm run dev runserver 9000 0.0.0.0 ipv4
         },
     )
     .command(

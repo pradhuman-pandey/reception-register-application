@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Navbar } from "../../components";
-import { RegisterList } from "../../components";
+import { Navbar, RegisterList } from "../../components";
 import { Browser, LOCAL_STORAGE_KEY } from "../../constants";
 
 export default function Dashboard() {

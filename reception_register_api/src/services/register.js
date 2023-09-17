@@ -10,7 +10,6 @@ import {Register} from '../models';
 export async function createRegisterService(payload, user) {
   payload.user = user._id;
   const newRegister = new Register(payload);
-  console.log(newRegister);
   const data = await newRegister.save();
   return data;
 }

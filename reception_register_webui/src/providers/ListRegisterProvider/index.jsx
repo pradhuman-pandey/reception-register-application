@@ -15,6 +15,6 @@ export default function ListRegisterProvider(props) {
   );
 }
 
-ListRegisterProvider.propType = {
+ListRegisterProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };

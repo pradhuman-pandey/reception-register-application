@@ -5,11 +5,9 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint --fix src/**/*.js",
-    "createsuperuser": "node dist/app.js createsuperuser",
-    "createsuperuser:dev": "babel-node src/app.js createsuperuser",
     "build": "babel src --out-dir dist",
-    "start": "node dist/app.js runserver",
-    "start:dev": "nodemon --exec babel-node src/app.js runserver",
+    "start": "node dist/app.js",
+    "dev": "nodemon --exec babel-node src/app.js",
     "test": "jest"
   },
   "jest": {

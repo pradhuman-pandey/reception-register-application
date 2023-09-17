@@ -1,6 +1,6 @@
 import LoginForm from "./LoginForm";
-import RegisterList from "./RegisterList";
-import RetreiveRegister from "./RetreiveRegister";
 import Navbar from "./Navbar";
+import RegisterList from "./RegisterList";
+import RetrieveRegister from "./RetrieveRegister";
 
-export { LoginForm, Navbar, RegisterList, RetreiveRegister };
+export { LoginForm, Navbar, RegisterList, RetrieveRegister };
