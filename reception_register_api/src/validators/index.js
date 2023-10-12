@@ -1,4 +1,17 @@
-import {loginSchema} from './accounts';
-import {registerCreateSchema, registerUpdateSchema} from './register';
+import {
+  accountLoginValidator,
+  createSuperUserValidator,
+} from './accounts.validator';
+import {
+  registerCreateValidator,
+  registerPartialUpdateValidator,
+  registerUpdateValidator,
+} from './register.validator';
 
-export {loginSchema, registerCreateSchema, registerUpdateSchema};
+export {
+  accountLoginValidator,
+  createSuperUserValidator,
+  registerCreateValidator,
+  registerPartialUpdateValidator,
+  registerUpdateValidator,
+};

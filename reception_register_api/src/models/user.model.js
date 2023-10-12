@@ -1,9 +1,12 @@
 import {compare, genSalt, hash} from 'bcryptjs';
 import {Schema, model} from 'mongoose';
 
-const tokenSchema = new Schema({
-  key: {type: String, require: true, unique: true},
-}, {timestamps: {createdAt: 'created'}});
+const tokenSchema = new Schema(
+    {
+      key: {type: String, require: true, unique: true},
+    },
+    {timestamps: {createdAt: 'created'}},
+);
 
 const userSchema = new Schema({
   email: {type: String, require: true, unique: true},

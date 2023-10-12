@@ -1,25 +1,25 @@
 import {
-  performLoginService,
-  performLogoutService,
-  retrieveUserService,
-} from './accounts';
+  accountDetailService,
+  accountLoginService,
+  accountLogoutService,
+} from './accounts.service';
 import {
-  createRegisterService,
-  destoryRegisterService,
-  listRegisterService,
-  partialUpdateRegisterService,
-  retrieveRegisterService,
-  updateRegisterService,
-} from './register';
+  registerCreateEntryService,
+  registerDestroyEntryService,
+  registerListEntryService,
+  registerPartialUpdateEntryService,
+  registerRetrieveEntryService,
+  registerUpdateEntryService,
+} from './register.service';
 
 export {
-  createRegisterService,
-  destoryRegisterService,
-  listRegisterService,
-  partialUpdateRegisterService,
-  performLoginService,
-  performLogoutService,
-  retrieveUserService,
-  retrieveRegisterService,
-  updateRegisterService,
+  accountDetailService,
+  accountLoginService,
+  accountLogoutService,
+  registerCreateEntryService,
+  registerDestroyEntryService,
+  registerListEntryService,
+  registerPartialUpdateEntryService,
+  registerRetrieveEntryService,
+  registerUpdateEntryService,
 };

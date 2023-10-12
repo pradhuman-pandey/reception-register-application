@@ -1,12 +1,12 @@
 import yargs from 'yargs';
 
-import {bootstrap, createsuperuser} from './cli';
+import {bootstrap, createSuperUser} from './cli';
 
 yargs
     .strict()
     .command(
         'bootstrap [port] [host]',
-        'Run server',
+        'Bootstrap application',
         (setup) => {
           setup
               .positional('port', {
@@ -22,7 +22,6 @@ yargs
         },
         async (args) => {
           await bootstrap(Number(args.port), args.host);
-          // npm run dev runserver 9000 0.0.0.0 ipv4
         },
     )
     .command(
@@ -36,7 +35,7 @@ yargs
               .positional('password', {type: 'string', describe: 'Password'});
         },
         async (args) => {
-          await createsuperuser(
+          await createSuperUser(
               args.email,
               args.firstName,
               args.lastName,

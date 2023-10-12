@@ -1,15 +1,8 @@
-import Joi from 'joi';
 import mongoose from 'mongoose';
 
 import {User} from '../models';
-import {MONGO_URI} from '../settings';
-
-const createSuperUserSchema = Joi.object({
-  email: Joi.string().email().required(),
-  firstName: Joi.string().min(3).required(),
-  lastName: Joi.string().min(1).required(),
-  password: Joi.string().min(3).required(),
-});
+import {MONGODB_URI} from '../settings';
+import {createSuperUserValidator} from '../validators';
 
 /**
  * Creates a new user.
@@ -18,15 +11,17 @@ const createSuperUserSchema = Joi.object({
  * @param {string} lastName associated with the user.
  * @param {string} password associated with the user.
  */
-export default async function createsuperuser(
+export default async function createSuperUser(
     email,
     firstName,
     lastName,
     password,
 ) {
   const args = {email, firstName, lastName, password};
-  const validatedData = await createSuperUserSchema.validateAsync(args);
+  const validatedData = await createSuperUserValidator.validateAsync(args);
   const newUser = new User({...validatedData, isAdmin: true});
-  await mongoose.connect(MONGO_URI);
+  await mongoose.connect(MONGODB_URI);
   await newUser.save();
+  console.info('Super User Created Successfully!');
+  process.exitCode = 0;
 }

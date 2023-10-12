@@ -1,4 +1,4 @@
-import Register from './register';
-import User from './user';
+import Register from './register.model';
+import User from './user.model';
 
 export {Register, User};

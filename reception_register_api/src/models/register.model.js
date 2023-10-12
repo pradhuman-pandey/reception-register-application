@@ -13,7 +13,7 @@ const registerSchema = new Schema(
       sign: {type: String, required: true},
       out: {type: Date, required: false},
       securitySign: {type: String, required: false},
-      remarks: {type: Date, required: false},
+      remarks: {type: String, required: false},
     },
     {timestamps: {createdAt: 'created', updatedAt: 'updated'}},
 );

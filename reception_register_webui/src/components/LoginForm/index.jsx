@@ -22,7 +22,7 @@ export default function LoginForm() {
     localStorage.setItem(LOCAL_STORAGE_KEY, data.token);
     setTimeout(() => {
       navigate(Browser.DASHBOARD);
-    }, 10000);
+    }, 2000);
     window.location.reload();
   };
 

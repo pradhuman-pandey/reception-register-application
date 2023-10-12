@@ -1,64 +1,55 @@
-import "dotenv/config";
-import mongoose from "mongoose";
-import request from "supertest";
+import 'dotenv/config';
+import mongoose from 'mongoose';
+import request from 'supertest';
 
-import { getRequestListener } from "../src/cli/bootstrap";
-import { User } from "../src/models";
-import { generateKey } from "../src/utils/token";
+import {getRequestListener} from '../src/cli/bootstrap';
+import {User} from '../src/models';
+import {generateKey} from '../src/utilities/token';
+
+const EMAIL = 'test.user@email.com';
+const PASSWORD = 'foo';
 
 const app = getRequestListener();
 
-describe("Account API Tests", () => {
+describe('Account API Tests', () => {
   beforeAll(async () => {
-    await mongoose.connect(process.env.MONGO_URI);
-  });
-
-  afterAll(async () => {
-    await User.deleteMany({});
-    await mongoose.connection.close();
-  });
-
-  beforeEach(async () => {
+    await mongoose.connect(process.env.MONGODB_URI);
     await User.create({
-      email: "test.user@email.com",
-      firstName: "Test",
-      lastName: "User",
-      password: "foo",
+      email: EMAIL,
+      firstName: 'Test',
+      lastName: 'User',
+      password: PASSWORD,
       isActive: true,
       dateJoined: new Date(),
     });
   });
 
-  afterEach(async () => {
-    await User.deleteMany({});
+  afterAll(async () => {
+    await User.deleteOne({email: EMAIL});
+    await mongoose.connection.close();
   });
 
-  describe("POST /api/v1/accounts/login", () => {
-    it("Performs Account Login", async () => {
-      const payload = {
-        email: "test.user@email.com",
-        password: "foo",
-      };
+  describe('POST /api/v1/accounts/login', () => {
+    it('Performs Account Login', async () => {
+      const payload = {email: EMAIL, password: PASSWORD};
 
       const response = await request(app)
-        .post("/api/v1/accounts/login")
-        .send(payload);
+          .post('/api/v1/accounts/login')
+          .send(payload);
       expect(response.status).toBe(201);
       expect(response.body.token).toBeDefined();
     });
   });
 
-  describe("GET /api/v1/accounts/detail", () => {
-    it("Retrieves Account Details", async () => {
-      const user = await User.findOne({
-        email: "test.user@email.com",
-      });
-      user.token = { key: generateKey() };
+  describe('GET /api/v1/accounts/detail', () => {
+    it('Retrieves Account Details', async () => {
+      const user = await User.findOne({email: EMAIL});
+      user.token = {key: generateKey()};
       await user.save();
 
       const response = await request(app)
-        .get("/api/v1/accounts/detail")
-        .set("Authorization", `Token ${user.token.key}`);
+          .get('/api/v1/accounts/detail')
+          .set('Authorization', `Token ${user.token.key}`);
 
       expect(response.status).toBe(200);
       expect(response.body.email).toBe(user.email);
@@ -66,31 +57,26 @@ describe("Account API Tests", () => {
       expect(response.body.lastName).toBe(user.lastName);
     });
 
-    it("Returns 401 if not authorized", async () => {
-      const response = await request(app).get("/api/v1/accounts/detail");
-
+    it('Returns 401 if not authorized', async () => {
+      const response = await request(app).get('/api/v1/accounts/detail');
       expect(response.status).toBe(401);
     });
   });
 
-  describe("DELETE /api/v1/accounts/logout", () => {
-    it("Performs Account Logout", async () => {
-      const user = await User.findOne({
-        email: "test.user@email.com",
-      });
-      user.token = { key: generateKey() };
+  describe('DELETE /api/v1/accounts/logout', () => {
+    it('Performs Account Logout', async () => {
+      const user = await User.findOne({email: EMAIL});
+      user.token = {key: generateKey()};
       await user.save();
 
       const response = await request(app)
-        .delete("/api/v1/accounts/logout")
-        .set("Authorization", `Token ${user.token.key}`);
-
+          .delete('/api/v1/accounts/logout')
+          .set('Authorization', `Token ${user.token.key}`);
       expect(response.status).toBe(204);
     });
 
-    it("Returns 401 if not authorized", async () => {
-      const response = await request(app).delete("/api/v1/accounts/logout");
-
+    it('Returns 401 if not authorized', async () => {
+      const response = await request(app).delete('/api/v1/accounts/logout');
       expect(response.status).toBe(401);
     });
   });

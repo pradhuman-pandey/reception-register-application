@@ -6,8 +6,8 @@ import mongoose from 'mongoose';
 import morgan from 'morgan';
 
 import {authenticate} from '../middlewares';
-import urlpatterns from '../routes';
-import {MONGO_URI} from '../settings';
+import urlPatterns from '../routers';
+import {MONGODB_URI} from '../settings';
 
 /**
  * Create Request Listener.
@@ -20,9 +20,9 @@ export function getRequestListener() {
   application.use(express.json());
   application.use(morgan('combined'));
   application.use(authenticate);
-
-  urlpatterns.forEach((router, pattern) => {
-    application.use(pattern, router);
+ 
+  urlPatterns.forEach((router, path) => {
+    application.use(path, router);
   });
 
   return application;
@@ -39,7 +39,7 @@ export default async function bootstrap(port, host) {
   const options = {};
   const server = new Server(options, requestListener);
 
-  await mongoose.connect(MONGO_URI);
+  await mongoose.connect(MONGODB_URI);
   server.listen(port, host, () => {
     console.info(server.address());
   });

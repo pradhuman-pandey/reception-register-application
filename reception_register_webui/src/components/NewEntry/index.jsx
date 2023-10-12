@@ -46,7 +46,7 @@ export default function NewEntry({ openModal }) {
     if (response.status !== 201) return;
     setTimeout(() => {
       window.location.reload();
-    }, 5000);
+    }, 2000);
   };
 
   return (

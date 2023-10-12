@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 
 /**
+ * Generate Key
  * @return {String}
  */
 export function generateKey() {
