@@ -1,21 +1,4 @@
-import {detail, login, logout} from './accounts';
-import {
-  createRegister,
-  destoryRegister,
-  listRegister,
-  partialUpdateRegister,
-  retrieveRegister,
-  updateRegister,
-} from './register';
+import accountsController from './accounts.controller';
+import registerController from './register.controller';
 
-export {
-  createRegister,
-  destoryRegister,
-  detail,
-  listRegister,
-  login,
-  logout,
-  partialUpdateRegister,
-  retrieveRegister,
-  updateRegister,
-};
+export {accountsController, registerController};

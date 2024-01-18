@@ -1,3 +1,3 @@
-import authenticate from './authentication';
+import authenticate from './authentication.middleware';
 
 export {authenticate};
