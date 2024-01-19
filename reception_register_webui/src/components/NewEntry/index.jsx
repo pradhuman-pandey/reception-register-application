@@ -40,7 +40,7 @@ export default function NewEntry({ openModal }) {
       in: new Date().toISOString(),
       sign: signRef.current.value,
     };
-    const response = await axios.post(API.V1.REGISTER, payload);
+    const response = await axios.post(API.V1.REGISTER_ENTRY, payload);
     if (response.status !== 201) return;
     setTimeout(() => {
       window.location.reload();

@@ -1,12 +1,12 @@
-import Axios from "axios";
+import axios from "axios";
 import { setupInterceptorsTo } from "./interceptor";
 
-const axios = setupInterceptorsTo(
-  Axios.create({
+const api = setupInterceptorsTo(
+  axios.create({
     baseURL: import.meta.env.VITE_PUBLIC_API_URL,
-    timeout: 10000,
+    timeout: 10 * 1000,  // 10 s
     headers: { "Content-Type": "application/json" },
   })
 );
 
-export default axios;
+export default api;

@@ -1,5 +1,5 @@
-import useListRegister from "./useListRegister";
-import useRetrieveRegister from "./useRetrieveRegister";
+import useListEntry from "./useListEntry";
+import useRetrieveEntry from "./useRetrieveEntry";
 import useUser from "./useUser";
 
-export { useListRegister, useRetrieveRegister, useUser };
+export { useListEntry, useRetrieveEntry, useUser };

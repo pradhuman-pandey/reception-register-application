@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 
 import { ListRegisterContext } from "../../contexts";
-import { useListRegister } from "../../hooks";
+import { useListEntry } from "../../hooks";
 
 export default function ListRegisterProvider(props) {
-  const [registerList, loading, filters, setFilters] = useListRegister();
+  const [registerList, loading, filters, setFilters] = useListEntry();
 
   return (
     <ListRegisterContext.Provider

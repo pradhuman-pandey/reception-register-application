@@ -4,19 +4,23 @@ import { useEffect, useState } from "react";
 import { API } from "../constants";
 import api from "../services/axios";
 
-export default function useUser() {
-  const [user, setUser] = useState(Object);
-  const [loading, setLoading] = useState(false);
+export default function useListRegister() {
+  const [entryList, setEntryList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [filters, setFilters] = useState({});
 
   useEffect(() => {
     const source = axios.CancelToken.source();
 
-    const retrieveUser = async () => {
+    const listEntry = async () => {
       setLoading(true);
       try {
-        const response = await api.get(API.V1.ACCOUNT_DETAIL);
+        const queryParams = new URLSearchParams(filters);
+        const url = `${API.V1.REGISTER_ENTRY}?${queryParams.toString()}`;
+        const options = { cancelToken: source.token };
+        const response = await api.get(url, options);
         const data = await response.data;
-        setUser(data);
+        setEntryList(data);
       } catch (err) {
         if (axios.isCancel(err)) {
           console.log("Request cancelled", err.message);
@@ -26,12 +30,12 @@ export default function useUser() {
         setLoading(false);
       }
     };
-    retrieveUser();
+    listEntry();
 
     return () => {
       source.cancel("Operation cancelled by the user.");
     };
-  }, []);
+  }, [filters]);
 
-  return [user, loading];
+  return [entryList, loading, filters, setFilters];
 }

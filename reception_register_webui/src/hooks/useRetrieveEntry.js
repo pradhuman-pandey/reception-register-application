@@ -4,19 +4,21 @@ import { useEffect, useState } from "react";
 import { API } from "../constants";
 import api from "../services/axios";
 
-export default function useUser() {
-  const [user, setUser] = useState(Object);
+export default function useRetrieveEntry(id) {
+  const [entry, setEntry] = useState(Object);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const source = axios.CancelToken.source();
 
-    const retrieveUser = async () => {
+    const retrieveEntry = async () => {
       setLoading(true);
       try {
-        const response = await api.get(API.V1.ACCOUNT_DETAIL);
+        const url = `${API.V1.REGISTER_ENTRY}/${id}`;
+        const options = { cancelToken: source.token };
+        const response = await api.get(url, options);
         const data = await response.data;
-        setUser(data);
+        setEntry(data);
       } catch (err) {
         if (axios.isCancel(err)) {
           console.log("Request cancelled", err.message);
@@ -26,12 +28,12 @@ export default function useUser() {
         setLoading(false);
       }
     };
-    retrieveUser();
+    retrieveEntry();
 
     return () => {
       source.cancel("Operation cancelled by the user.");
     };
-  }, []);
+  }, [id]);
 
-  return [user, loading];
+  return [entry, loading];
 }
