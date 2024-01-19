@@ -6,9 +6,11 @@ Reception Register API Reference
 
 Change .env according to your system setup.
 
+_Sample_: `MONGODB_URI = mongodb://<USER>:<PASSWORD>@<HOST>:<PORT>/<DATABASE>`
+
 ```bash
-npm i  # Install dependencies
-npm run start:dev  # Runs the development server
+npm i --location=project  # Install dependencies
+npm run dev bootstrap  # Runs the development server
 ```
 
 ## How to prepare for production?
@@ -26,5 +28,5 @@ npm run build  # Generates the build
 - Finally follow the command below.
 
 ```bash
-npm start
+npm start bootstrap
 ```

@@ -4,7 +4,7 @@ Reception Register Application
 
 ## How to start the application?
 
-- Run this command to start the Express, React and Nginx Servers
+- Run this command to start the MongoDB, Express, React and Nginx Servers
   ```bash
   docker-compose up -d
   ```
@@ -12,8 +12,8 @@ Reception Register Application
 
 ## Reference
 
-- **[Backend Reference]**
-- **[Frontend Reference]**
+- **[Back End Reference]**
+- **[Front End Reference]**
 
-[Backend Reference]: reception_register_api/README.md
-[Frontend Reference]: reception_register_webui/README.md
+[Back End Reference]: reception_register_api/README.md
+[Front End Reference]: reception_register_webui/README.md
