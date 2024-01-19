@@ -2,8 +2,6 @@ import {STATUS_CODES} from 'http';
 
 import {User} from '../models';
 
-const EXCLUDE_URLS = ['/api/v1/accounts/login'];
-
 /**
  * Authentication middleware.
  * @param {Request} request
@@ -13,9 +11,6 @@ const EXCLUDE_URLS = ['/api/v1/accounts/login'];
  */
 export default async function authenticate(request, response, next) {
   const authorization = request.headers?.authorization;
-  if (EXCLUDE_URLS.includes(request.path)) {
-    return next();
-  }
   if (!authorization) {
     return response.status(401).json({detail: STATUS_CODES[401]});
   }

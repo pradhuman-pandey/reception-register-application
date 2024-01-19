@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { useRef } from "react";
 import { Box, Modal } from "@mui/material";
 
+import { API } from "../../constants";
 import axios from "../../services/axios";
 
 const style = {
@@ -39,10 +40,7 @@ export default function NewEntry({ openModal }) {
       in: new Date().toISOString(),
       sign: signRef.current.value,
     };
-    const response = await axios.post(
-      `http://127.0.0.1:8000/api/v1/register/`,
-      payload
-    );
+    const response = await axios.post(API.V1.REGISTER, payload);
     if (response.status !== 201) return;
     setTimeout(() => {
       window.location.reload();

@@ -1,25 +1,4 @@
-import {
-  performLoginService,
-  performLogoutService,
-  retrieveUserService,
-} from './accounts';
-import {
-  createRegisterService,
-  destoryRegisterService,
-  listRegisterService,
-  partialUpdateRegisterService,
-  retrieveRegisterService,
-  updateRegisterService,
-} from './register';
+import accountsService from './accounts.service';
+import registerService from './register.service';
 
-export {
-  createRegisterService,
-  destoryRegisterService,
-  listRegisterService,
-  partialUpdateRegisterService,
-  performLoginService,
-  performLogoutService,
-  retrieveUserService,
-  retrieveRegisterService,
-  updateRegisterService,
-};
+export {accountsService, registerService};
