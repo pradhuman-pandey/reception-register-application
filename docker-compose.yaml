@@ -13,6 +13,8 @@ services:
     container_name: Reception-Register-API
     depends_on:
       - db
+    environment:
+      - MONGODB_URI=mongodb://db/reception-register
     image: reception-register:api
     restart: always
 
@@ -21,6 +23,8 @@ services:
     container_name: Reception-Register-WEBUI
     depends_on:
       - db
+    environment:
+      - VITE_PUBLIC_API_URL=http://127.0.0.1/api
     image: reception-register:webui
     restart: on-failure
     volumes:
