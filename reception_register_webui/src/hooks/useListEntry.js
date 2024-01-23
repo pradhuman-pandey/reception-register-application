@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-import { API } from "../constants";
-import api from "../services/axios";
+import { API } from "@/constants";
+import api from "@/services/axios";
 
 export default function useListRegister() {
   const [entryList, setEntryList] = useState([]);

@@ -2,7 +2,7 @@ import {STATUS_CODES} from 'http';
 
 import {ValidationError} from 'joi';
 
-import {registerService} from '../services';
+import {registerService} from '@/services';
 
 export default {
   listEntry: async (request, response) => {

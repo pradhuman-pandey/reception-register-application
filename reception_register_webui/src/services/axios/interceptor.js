@@ -1,4 +1,4 @@
-import { LOCAL_STORAGE_KEY } from "../../constants";
+import { LOCAL_STORAGE_KEY } from "@/constants";
 
 const onRequest = (config) => {
   const token = localStorage.getItem(LOCAL_STORAGE_KEY);

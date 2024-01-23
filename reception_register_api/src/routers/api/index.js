@@ -1,6 +1,6 @@
 import {Router} from 'express';
 
-import v1Router from './v1';
+import v1Router from '@/routers/api/v1';
 
 const urlPatterns = new Map([
   ['/v1', v1Router],

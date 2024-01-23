@@ -1,7 +1,7 @@
 import {Router} from 'express';
 
-import accountsRouter from './accounts.router';
-import registerRouter from './register.router';
+import accountsRouter from '@/routers/api/v1/accounts.router';
+import registerRouter from '@/routers/api/v1/register.router';
 
 const urlPatterns = new Map([
   ['/accounts', accountsRouter],

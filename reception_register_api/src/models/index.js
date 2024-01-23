@@ -1,4 +1,4 @@
-import Entry from './entry.model';
-import User from './user.model';
+import Entry from '@/models/entry.model';
+import User from '@/models/user.model';
 
 export {Entry, User};

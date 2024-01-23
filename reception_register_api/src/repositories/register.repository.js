@@ -1,4 +1,4 @@
-import {Entry} from '../models';
+import {Entry} from '@/models';
 
 export default {
   listEntry: async (filters) => {

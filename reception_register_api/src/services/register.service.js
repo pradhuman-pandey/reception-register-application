@@ -1,5 +1,5 @@
-import {registerRepository} from '../repositories';
-import {registerValidator} from '../validators';
+import {registerRepository} from '@/repositories';
+import {registerValidator} from '@/validators';
 
 export default {
   listEntry: async (query) => {
